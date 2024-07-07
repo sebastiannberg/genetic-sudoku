@@ -1,3 +1,4 @@
+from typing import List
 import random
 
 from individual import Individual
@@ -5,10 +6,7 @@ from individual import Individual
 
 class Population:
 
-    def __init__(self, path_to_puzzle):
-        self.individuals = self.initialize(path_to_puzzle, population_size=10)
-
-    def initialize(self, path_to_puzzle, population_size=10):
+    def __init__(self, path_to_puzzle, initial_population_size=10):
         with open(path_to_puzzle, "r") as f:
             rows = f.readlines()
             puzzle = [[int(num) for num in row.split(",")] for row in rows]
@@ -23,7 +21,7 @@ class Population:
                     non_fixed_indices.add((i, j))
 
         individuals = []
-        for _ in range(population_size):
+        for _ in range(initial_population_size):
             genotype = [row[:] for row in puzzle]  # Deep copy of the puzzle
             for index_pair in non_fixed_indices:
                 num = random.randint(1, 9)
@@ -32,4 +30,4 @@ class Population:
             individual = Individual(genotype=genotype, fixed_indices=fixed_indices, non_fixed_indices=non_fixed_indices)
             individuals.append(individual)
 
-        return individuals
+        self.individuals: List[Individual] = individuals

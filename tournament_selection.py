@@ -11,12 +11,12 @@ class TournamentSelection:
     def __init__(self, tournament_size: int) -> None:
         self.tournament_size = tournament_size
 
-    def select(self, population: Population, num_offspring: int) -> List[Individual]:
+    def select(self, population: Population, num_selection: int) -> List[Individual]:
         selection = []
 
-        for _ in range(num_offspring):
+        for _ in range(num_selection):
             tournament = random.sample(population.individuals, k=self.tournament_size)
-            fitness_scores = [(individual, FitnessFunction.evaluate_individual(Individual)) for individual in tournament]
+            fitness_scores = [(individual, FitnessFunction.evaluate_individual(individual)) for individual in tournament]
             best_individual = max(fitness_scores, key=lambda x: x[1])[0]
             selection.append(best_individual)
 

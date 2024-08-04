@@ -1,4 +1,7 @@
+import numpy as np
+
 from individual import Individual
+from population import Population
 
 
 class FitnessFunction:
@@ -26,6 +29,13 @@ class FitnessFunction:
                 score += FitnessFunction._count_uniques(square)
 
         return score
+
+    @staticmethod
+    def evaluate_population(population: Population):
+        scores = []
+        for individual in population.individuals:
+            scores.append(FitnessFunction.evaluate_individual(individual))
+        return np.mean(scores)
 
     @staticmethod
     def _count_uniques(array):

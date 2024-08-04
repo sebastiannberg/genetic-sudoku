@@ -31,3 +31,6 @@ class Population:
             individuals.append(individual)
 
         self.individuals: List[Individual] = individuals
+
+    def update(self, individuals: List[Individual]):
+        self.individuals = individuals
